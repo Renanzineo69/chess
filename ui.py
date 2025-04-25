@@ -1,6 +1,6 @@
 # ui.py
 
-from PyQt5.QtWidgets import QMainWindow, QApplication
+from PyQt5.QtWidgets import QMainWindow, QApplication, QDesktopWidget
 from chessboard import ChessBoard
 
 class MainWindow(QMainWindow):
@@ -8,10 +8,19 @@ class MainWindow(QMainWindow):
         super().__init__()
 
         self.setWindowTitle("Xadrez - Jogo")
-        self.setGeometry(100, 100, 600, 600)
+        self.setFixedSize(600, 600)
 
         self.chessboard = ChessBoard()
         self.setCentralWidget(self.chessboard)
+
+        self.center()
+
+    def center(self):
+        """Centraliza a janela na tela"""
+        qr = self.frameGeometry()
+        cp = QDesktopWidget().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
 
     def show(self):
         super().show()
